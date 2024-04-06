@@ -1,5 +1,5 @@
 # 10-Week-SQL-Business-Intelligence-Challenges
-This 10-week program provides a structured and engaging way for SQL users of all levels to develop their business intelligence skills through practical challenges. This program offers a progressive learning experience through real-world business intelligence (BI) scenarios across various industries. Each week focuses on a specific industry, presenting 10 business cases with varying difficulty levels to cater to beginners, intermediate, and advanced SQL users.
+This 10-week program provides a structured and engaging way for SQL and Python users of all levels to develop their business intelligence skills through practical challenges. This program offers a progressive learning experience through real-world business intelligence (BI) scenarios across various industries. Each week focuses on a specific industry, presenting 10 business cases with varying difficulty levels to cater to beginners, intermediate, and advanced SQL users.
 
 # Challenge Structure:
 
