@@ -18,7 +18,7 @@ The provided Python script generates a dataset simulating real-world customer tr
 
 ### Beginner (3 cases):
 
-1. Identify the top 5 most popular clothing categories (by total units sold) in the past quarter.
+1. Identify the top 2 most popular clothing categories (by total units sold) in the past quarter.
 2. Calculate the average order value (total revenue per transaction) for the past month.
 3. Find the city with the highest average customer spending.
    
