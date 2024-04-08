@@ -37,14 +37,26 @@ from
 -- Find the city with the highest average customer spending.
 --==============================================================================================
 
-select City, CustomerName,format(avgSpendingPerTransaction,'C') as avgSpendingPerTransaction,avgSpendingRank from
-(
-select c.CustomerID, CONCAT_WS(', ',upper(c.LasttName),c.FirstName) as CustomerName,c.City,
-avg(t.Quantity*p.UnitPrice*(1-t.Discount)) as avgSpendingPerTransaction,
-DENSE_RANK() over (order by avg(t.Quantity*p.UnitPrice*(1-t.Discount)) desc) as avgSpendingRank
-from [clothing].[SalesTransactions] as t
-inner join [clothing].[Products] as p on t.ProductID = p.ProductID
-inner join [clothing].[Customers] as c on t.CustomerID=c.CustomerID
-group by c.CustomerID, CONCAT_WS(', ',upper(c.LasttName),c.FirstName),c.City
-) as Subquery
-where avgSpendingRank <=1
+WITH CustomerSpending AS (
+    SELECT
+        c.CustomerID,
+        c.City,
+        SUM(p.UnitPrice * st.Quantity * (1 - st.Discount)) AS TotalSpending -- Calculates total spending per customer
+    FROM Clothing.SalesTransactions st
+    JOIN Clothing.Customers c ON st.CustomerID = c.CustomerID
+    JOIN Clothing.Products p ON st.ProductID = p.ProductID
+    GROUP BY c.CustomerID, c.City
+), AverageCitySpending AS (
+    SELECT
+        City,
+        AVG(TotalSpending) AS AverageSpending,
+        DENSE_RANK() OVER (ORDER BY AVG(TotalSpending) DESC) AS SpendingRank -- Ranks cities by average spending
+    FROM CustomerSpending
+    GROUP BY City
+)
+SELECT 
+    City, 
+    AverageSpending,
+    SpendingRank
+FROM AverageCitySpending
+WHERE SpendingRank = 1; -- Selects the top-ranked city/cities in terms of average spending
